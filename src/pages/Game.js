@@ -38,13 +38,11 @@ class Game extends Component {
 
   render() {
     const { questions } = this.state;
-    const { indexQuestion, reveal } = this.props;
+    const { indexQuestion } = this.props;
     return (
-      <div>
+      <div className="h-10/12">
         <Header />
-        <h2>Game</h2>
-
-        <div>
+        <div className="h-full">
           {questions.map((info, i) => (
             i === indexQuestion
           && <Question
@@ -55,20 +53,6 @@ class Game extends Component {
             onClickNext={ this.onClickNext }
           />
           ))}
-        </div>
-        <div>
-          { reveal
-            && (
-              <div>
-                <button
-                  data-testid="btn-next"
-                  type="button"
-                  onClick={ this.onClickNext }
-                >
-                  Next
-                </button>
-              </div>
-            )}
         </div>
       </div>
     );

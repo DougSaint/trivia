@@ -45,13 +45,7 @@ class Question extends Component {
   };
 
   onClickNextQuestion = () => {
-    const { name,
-      gravatarEmail,
-      score,
-      dispatch,
-      indexQuestion,
-      onClickNext,
-    } = this.props;
+    const { name, gravatarEmail, score, dispatch, indexQuestion, onClickNext } = this.props;
     const max = 4;
     if (indexQuestion === max) {
       const playerInfo = {
@@ -61,7 +55,10 @@ class Question extends Component {
       };
       const storage = JSON.parse(localStorage.getItem('ranking'));
       if (storage) {
-        localStorage.setItem('ranking', JSON.stringify([...storage, playerInfo]));
+        localStorage.setItem(
+          'ranking',
+          JSON.stringify([...storage, playerInfo]),
+        );
       } else {
         localStorage.setItem('ranking', JSON.stringify([playerInfo]));
       }
@@ -101,31 +98,48 @@ class Question extends Component {
     const { category, question, correctAnswer } = this.props;
     const { answers, timer, reveal } = this.state;
     return (
-      <div>
-        <p>
-          Tempo restante:
-          {timer}
-        </p>
-        <h3 data-testid="question-category">{category}</h3>
-        <p data-testid="question-text">{question}</p>
-        <div data-testid="answer-options">
-          {answers.map((answer) => (
-            <button
-              type="button"
-              data-testid={ this.verifyIsCorrect(answer) }
-              key={ answer }
-              className={ this.handleStyles(correctAnswer, answer) }
-              onClick={ () => this.handleClick(correctAnswer, answer) }
-              disabled={ reveal }
-            >
-              {answer}
-            </button>
-          ))}
+      <div className="flex flex-col md:flex-row w-full justify-around h-4/6 pt-10">
+        <div className="h-4/6 md:w-2/6 mb-5 bg-slate-400 shadow-md shadow-slate-500 rounded-lg flex flex-col items-center p-4 justify-between">
+          <h3
+            data-testid="question-category"
+            className=" text-slate-800 text-2xl text-center bg-purple-200 w-4/6 rounded-xl"
+          >
+            {category}
+          </h3>
+          <p data-testid="question-text" className="p-4 text-xl text-slate-800">
+            {question}
+          </p>
+          <p className="text-red-600 ">
+            Tempo restante:
+            {timer}
+          </p>
         </div>
-        { reveal
-          ? (
+
+        <section className="md:w-2/6">
+          <div
+            data-testid="answer-options"
+            className="flex flex-col items-start"
+          >
+            {answers.map((answer) => (
+              <button
+                type="button"
+                data-testid={ this.verifyIsCorrect(answer) }
+                key={ answer }
+                className={ `${this.handleStyles(
+                  correctAnswer,
+                  answer,
+                )} bg-purple-200 mb-5 w-full rounded-xl p-1 border-2` }
+                onClick={ () => this.handleClick(correctAnswer, answer) }
+                disabled={ reveal }
+              >
+                {answer}
+              </button>
+            ))}
+          </div>
+          {reveal && (
             <div>
               <button
+                className="bg-cyan-400 w-full rounded-md p-1"
                 data-testid="btn-next"
                 type="button"
                 onClick={ this.onClickNextQuestion }
@@ -133,7 +147,8 @@ class Question extends Component {
                 Next
               </button>
             </div>
-          ) : null}
+          )}
+        </section>
       </div>
     );
   }

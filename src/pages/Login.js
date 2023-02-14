@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
 import getToken from '../services/getToken';
-// import './App.css';
+import '../App.css';
 import logo from '../trivia.png';
 import { enviaDadosLogin, resetaQuestoes, resetaScore } from '../redux/actions';
 
@@ -41,11 +41,12 @@ class Login extends Component {
     const emailPattern = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
     const lengthName = 0;
     return (
-      <div>
-        <header className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
-          <label htmlFor="email">
+      <main className="h-full w-full flex flex-col items-center ">
+        <img src={ logo } className="w-4/6 mt-12 md:w-3/6" alt="logo" />
+        <div className="flex flex-col mt-10">
+          <label htmlFor="email" className="mt-5">
             <input
+              className="rounded-md p-1"
               data-testid="input-gravatar-email"
               id="email"
               type="email"
@@ -54,8 +55,9 @@ class Login extends Component {
               onChange={ this.handleChange }
             />
           </label>
-          <label htmlFor="name">
+          <label htmlFor="name" className="my-5">
             <input
+              className="rounded-md p-1"
               data-testid="input-player-name"
               id="name"
               name="name"
@@ -65,6 +67,7 @@ class Login extends Component {
             />
           </label>
           <button
+            className="mb-3 bg-cyan-500 text-white rounded-md py-1 cursor-pointer active:scale-95 disabled:bg-slate-600 disabled:text-slate-500"
             data-testid="btn-play"
             type="button"
             disabled={ !(emailPattern.test(email) && name.length > lengthName) }
@@ -73,6 +76,7 @@ class Login extends Component {
             Jogar
           </button>
           <button
+            className="rounded-md py-1 bg-slate-400 text-white"
             data-testid="btn-settings"
             type="button"
             onClick={ () => {
@@ -81,8 +85,9 @@ class Login extends Component {
           >
             Configurações
           </button>
-        </header>
-      </div>
+        </div>
+
+      </main>
     );
   }
 }
