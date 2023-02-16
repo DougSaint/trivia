@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { atualizaScore, changeQuestion } from '../redux/actions';
 import { shuffleArray } from '../services/Helpers';
 import css from '../styles/Question.module.css';
+import he from 'he';
 
 class Question extends Component {
   state = {
@@ -107,7 +108,7 @@ class Question extends Component {
             {category}
           </h3>
           <p data-testid="question-text" className="p-4 text-xl text-slate-800">
-            {question}
+            {he.decode(question)}
           </p>
           <p className="text-red-600 ">
             Tempo restante:

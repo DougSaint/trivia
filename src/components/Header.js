@@ -23,7 +23,7 @@ class Header extends Component {
           </div>
 
           <h2 data-testid="header-score" className="  md:text-xl text-white">
-            Pontuação:
+            Pontuação :{' '}
             { score }
           </h2>
         </div>
